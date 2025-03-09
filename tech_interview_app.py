@@ -53,7 +53,6 @@ else:
          end_interview()
 
 # chat input
-
 if st.session_state.interview_started:
     user_input = st.chat_input("Your response...")
     text = speech_to_text(
