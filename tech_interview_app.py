@@ -3,6 +3,7 @@ from utils.utilities import (start_interview, end_interview,
                              record_and_transcribe, is_input_safe, 
                              process_user_input)
 from utils.system_prompt import generate_system_prompt
+from streamlit_mic_recorder import speech_to_text
 
 # set page configuration
 st.set_page_config(page_title="Mock Technical Interview App", layout="wide")
@@ -56,11 +57,20 @@ else:
 if st.session_state.interview_started:
     user_input = st.chat_input("Your response...")
     if st.button("🎤"):
-        transcribed_text = record_and_transcribe()
-        user_input = transcribed_text.text
+        text = speech_to_text(
+                    language='en',
+                    start_prompt="Start recording",
+                    stop_prompt="Stop recording",
+                    just_once=False,
+                    use_container_width=False,
+                    callback=None,
+                    args=(),
+                    kwargs={},
+                    key=None
+                )
+        user_input = text
     if user_input:
         if not is_input_safe(user_input):
             st.error("Your input violates security policies. Please rephrase.")
         else:
             process_user_input(user_input, system_prompt)
-
