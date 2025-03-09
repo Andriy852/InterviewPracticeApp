@@ -56,18 +56,13 @@ else:
 
 if st.session_state.interview_started:
     user_input = st.chat_input("Your response...")
-    if st.button("🎤"):
-        text = speech_to_text(
+    text = speech_to_text(
                     language='en',
                     start_prompt="Start recording",
                     stop_prompt="Stop recording",
-                    just_once=False,
-                    use_container_width=False,
-                    callback=None,
-                    args=(),
-                    kwargs={},
-                    key=None
+                    just_once=True
                 )
+    if text:
         user_input = text
     if user_input:
         if not is_input_safe(user_input):
