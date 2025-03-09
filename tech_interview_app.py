@@ -51,7 +51,6 @@ else:
     if st.button("End Interview"):
          end_interview()
 
-
 # chat input
 
 if st.session_state.interview_started:

@@ -6,6 +6,7 @@ import streamlit as st
 import speech_recognition as sr
 import streamlit as st
 
+
 def start_interview(system_prompt: str, temperature: float = 0, model: str = "gpt-4o-mini") -> None:
     """
     Starts an interview session by initializing the conversation and sending the system prompt to the model.
@@ -43,6 +44,7 @@ def start_interview(system_prompt: str, temperature: float = 0, model: str = "gp
         st.rerun()
     except Exception as e:
         st.error("Error: Failed to start the interview. Please try again.")
+        st.write(e)
 
 def end_interview() -> None:
     """
@@ -206,7 +208,8 @@ def record_and_transcribe() -> str:
             with open(temp_filename, "rb") as audio_file:
                 response = openai.audio.transcriptions.create(
                     model="whisper-1",
-                    file=audio_file
+                    file=audio_file,
+                    language="en"
                 )
         os.remove(temp_filename)
         return response
