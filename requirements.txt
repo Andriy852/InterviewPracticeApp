@@ -1,0 +1,5 @@
+fitz==0.0.1.dev2
+openai==1.63.2
+openai-whisper==20240930
+SpeechRecognition==3.14.1
+streamlit==1.42.2
