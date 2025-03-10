@@ -1,7 +1,6 @@
 import streamlit as st
 from utils.utilities import (start_interview, end_interview, 
-                             record_and_transcribe, is_input_safe, 
-                             process_user_input)
+                             is_input_safe, process_user_input)
 from utils.system_prompt import generate_system_prompt
 from streamlit_mic_recorder import speech_to_text
 
@@ -30,7 +29,8 @@ all_fields_filled = role and company and job_description and level and resume an
 
 # generate system prompt
 if all_fields_filled:
-    system_prompt = generate_system_prompt(role, company, level, resume, job_description, persona, custom_questions)
+    system_prompt = generate_system_prompt(role, company, level, resume, 
+                                           job_description, persona, custom_questions)
 
 # create chat container
 st.subheader("Interview Conversation")
@@ -44,9 +44,8 @@ with chat_container:
             st.chat_message("user").write(message["content"])
 
 # start-end interview buttons
-# disabled=not all_fields_filled
 if not st.session_state.interview_started:
-    if st.button("Start Interview"):
+    if st.button("Start Interview", disabled=not all_fields_filled):
         start_interview(system_prompt)
 else:
     if st.button("End Interview"):
@@ -55,12 +54,8 @@ else:
 # chat input
 if st.session_state.interview_started:
     user_input = st.chat_input("Your response...")
-    text = speech_to_text(
-                    language='en',
-                    start_prompt="Start recording",
-                    stop_prompt="Stop recording",
-                    just_once=True
-                )
+    text = speech_to_text(language='en', start_prompt="Start recording",
+                          stop_prompt="Stop recording", just_once=True)
     if text:
         user_input = text
     if user_input:

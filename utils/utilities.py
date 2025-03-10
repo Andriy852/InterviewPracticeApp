@@ -1,11 +1,7 @@
 import fitz
 import openai
-import os
 import re
 import streamlit as st
-import speech_recognition as sr
-import streamlit as st
-
 
 def start_interview(system_prompt: str, temperature: float = 0, model: str = "gpt-4o-mini") -> None:
     """
@@ -143,7 +139,6 @@ def extract_text_from_pdf(pdf_path: str) -> str:
         text += page.get_text()
     return text
 
-
 def get_completion(messages: list, temperature: float = 0.2, 
                    top_p: float = 0.5, frequency_penalty: float = 0.0, 
                    presence_penalty: float = 0.0) -> str:
@@ -173,53 +168,6 @@ def get_completion(messages: list, temperature: float = 0.2,
         presence_penalty=presence_penalty
     )
     return response.choices[0].message.content
-
-def record_and_transcribe() -> str:
-    """
-    Records audio from the microphone and transcribes it using Whisper.
-
-    Returns:
-        str: The transcribed text, or None if an error occurs.
-
-    Raises:
-        Exception: If there is an error accessing the microphone, saving the audio, or transcribing.
-    """
-    recognizer = sr.Recognizer()
-    try:
-        with sr.Microphone() as source:
-            st.write("🎤 Speak now...")
-            recognizer.adjust_for_ambient_noise(source)
-            recognizer.pause_threshold = 2
-            audio = recognizer.listen(source)
-    except Exception as e:
-        st.error("Error: Could not access the microphone. Please check your microphone settings.")
-        return None
-    
-    temp_filename = "temp_audio.wav"
-    try:
-        with open(temp_filename, "wb") as f:
-            f.write(audio.get_wav_data())
-    except Exception as e:
-        st.error("Error: Failed to save the audio file.")
-        return None
-    
-    try:
-        with st.spinner("Transcribing audio..."):
-            with open(temp_filename, "rb") as audio_file:
-                response = openai.audio.transcriptions.create(
-                    model="whisper-1",
-                    file=audio_file,
-                    language="en"
-                )
-        os.remove(temp_filename)
-        return response
-    except Exception as e:
-        st.error("Error: Transcription failed. Please try again.")
-        if os.path.exists(temp_filename):
-            os.remove(temp_filename)
-        return None
-
-
 
 def process_user_input(user_input: str, system_prompt: str) -> None:
     """
