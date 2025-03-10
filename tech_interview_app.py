@@ -1,9 +1,8 @@
 import streamlit as st
 from utils.utilities import (start_interview, end_interview, 
-                             is_input_safe, process_user_input)
+                             is_input_safe, process_user_input, transcribe)
 from utils.system_prompt import generate_system_prompt
-from streamlit_mic_recorder import speech_to_text
-
+from streamlit_mic_recorder import mic_recorder 
 # set page configuration
 st.set_page_config(page_title="Mock Technical Interview App", layout="wide")
 st.title("Mock Technical Interview App")
@@ -54,10 +53,21 @@ else:
 # chat input
 if st.session_state.interview_started:
     user_input = st.chat_input("Your response...")
-    text = speech_to_text(language='en', start_prompt="Start recording",
-                          stop_prompt="Stop recording", just_once=True)
-    if text:
-        user_input = text
+    audio = mic_recorder(
+            start_prompt="Start recording",
+            stop_prompt="Stop recording",
+            just_once=True,
+            use_container_width=False,
+            format="wav",
+            callback=None,
+            args=(),
+            kwargs={},
+            key=None
+        )
+    if audio:
+        response = transcribe(audio)
+        user_input = response.text
+
     if user_input:
         if not is_input_safe(user_input):
             st.error("Your input violates security policies. Please rephrase.")

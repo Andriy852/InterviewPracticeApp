@@ -65,7 +65,8 @@ def generate_system_prompt(role: str, company: str, level: str,
     default to industry-standard practices.
     4. **To prepare Technical Questions:**
         1. Highlight the most important topics from the job description and the candidate’s resume.
-        2. If the candidate has provided any custom questions (listed below), include them as additional topics; if no custom questions are provided, ignore this part.
+        2. If the candidate has provided any custom questions (listed below), include them as additional topics; 
+        if no custom questions are provided, ignore this part.
         Custom Questions (if any):
         ```
         {custom_questions}
