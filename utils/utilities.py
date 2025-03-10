@@ -3,19 +3,15 @@ import openai
 import re
 import streamlit as st
 import os
+from typing import Dict
 
-def transcribe(audio) -> str:
+def transcribe(audio: Dict) -> str:
     """
-    Records audio from the microphone and transcribes it using Whisper.
+    Transcribes audio using Whisper.
 
     Returns:
         str: The transcribed text, or None if an error occurs.
-
-    Raises:
-        Exception: If there is an error accessing the microphone, saving the audio, or transcribing.
     """
-    print("i am in transcribe function")
-    
     temp_filename = "temp_audio.wav"
     try:
         with open(temp_filename, "wb") as f:
