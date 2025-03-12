@@ -11,7 +11,7 @@ This project is a Streamlit-based web application designed to help people prepar
 - **Audio Transcription**: Record and transcribe your responses using OpenAI's Whisper model.
 - **Security**: Detects and prevents prompt injection attacks to ensure a safe interview environment.
 
-The application was successfully deployed to Streamlit Cloud. To interact, you can follow this [link](https://interviewpracticeapp-33kh8ujwtju8kpe2uwptbv.streamlit.app).
+The application was successfully deployed to Streamlit Cloud. To interact, you can follow this [link](https://interviewpracticeapp-bylk6jwm8u9fumomjm5mmd.streamlit.app).
 
 
 ## Tech Stack
