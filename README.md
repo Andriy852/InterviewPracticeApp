@@ -38,11 +38,24 @@ To run the app locally, follow these steps:
     cd InterviewPracticeApp
     ```
 
+2. Install Poetry (if you don't have it installed yet):
+    ```sh
+    curl -sSL https://install.python-poetry.org | python3 -
+    ```
 3. Install the required dependencies:
     ```sh
-    pip install -r requirements.txt
+    poetry install
+
     ```
-4. Run the Streamlit app:
+4. Activate the virtual environment:
+    ```sh
+    poetry env activate
+    ```
+5. Get Your OpenAI API Key and set it in your environment:
+    ```sh
+    export OPENAI_API_KEY="your-api-key-here"
+    ```
+6. Run the Streamlit app:
     ```sh
     streamlit run tech_interview_app.py
     ```
