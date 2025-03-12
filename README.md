@@ -28,7 +28,6 @@ The application was successfully deployed to Streamlit Cloud. To interact, you c
 ![Interview Page](Screenshot-1.png)
 ![Interview Page](Screenshot-2.png)
 
-
 ## Installation
 
 To run the app locally, follow these steps:
