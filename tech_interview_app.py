@@ -8,15 +8,16 @@ st.set_page_config(page_title="Mock Technical Interview App", layout="wide")
 st.title("Mock Technical Interview App")
 
 # create input fields
-role = st.text_input("Enter the role:*")
-company = st.text_input("Enter the company:*")
-job_description = st.text_area("Enter the job description:*")
+role = st.text_input("Enter the role:*", max_chars=50)
+company = st.text_input("Enter the company:*", max_chars=50)
+job_description = st.text_area("Enter the job description:*", max_chars=2500)
 level = st.selectbox("Select the role level:*", ["Junior", "Mid-Level", "Senior", "Lead"])
 persona = st.selectbox("Select the persona of the interviewer:*", ["Strict", "Neutral", "Friendly"])
 resume = st.file_uploader("Upload your resume*", type="pdf")
 
 st.subheader("Customize Interview Questions")
-custom_questions = st.text_area("Enter questions you want the interviewer to ask you (one per line)")
+custom_questions = st.text_area("Enter questions you want the interviewer to ask you (one per line)",
+                                max_chars=2500)
 
 # create session state variables
 if "conversation" not in st.session_state:
